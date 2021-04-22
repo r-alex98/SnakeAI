@@ -1,0 +1,112 @@
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.side{
+    background-color: grey;
+    align-self: flex-start;
+}
+
+@media screen and (min-width: 900px) {
+    .main {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .side{
+        margin-bottom: 10px;
+        width: 20%;
+    }
+}
+
+.main-container{
+    margin-left: 10px;
+    width: 80%;
+}
+
+.canvas-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.title{
+    margin-left: 10px;
+}
+
+.text-white{
+    color: white;
+}
+
+canvas{
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.canvas-idle{
+    border: 1px solid black;
+}
+
+.highlighted-canvas-red{
+    border: 1px solid red;
+}
+
+.highlighted-canvas-green{
+    border: 2px solid green;
+}
+
+.control-panel{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn{
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn:hover{
+    color: white;   
+    cursor: pointer;
+}
+
+.btn-start{
+    background-color: rgb(113, 214, 100);
+}
+
+.btn-stop{
+    background-color: rgb(222, 65, 65);
+}
+
+.btn-start:hover{
+    background-color: rgb(78, 203, 63);
+}
+
+.btn-stop:hover{
+    background-color: rgb(232, 28, 51);
+}
+
+.control-el{
+    margin: 10px;
+    align-self: center;
+}
+
+label{
+    font-size: 16px;
+    margin: 0;
+}
+
+input[type="number"]{
+    width: 100%;
+    border: none;
+    font-size: 18px;
+}
+
+.score-block{
+    padding: 10px 0 20px 0;
+}

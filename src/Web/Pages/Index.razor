@@ -1,0 +1,130 @@
+﻿@page "/"
+@using SnakeGame
+@using GeneticAlgorithm.Population
+@using GeneticGame.Settings
+@using SnakeGame.Game
+@using Web.Simulators
+
+@inject IJSRuntime Js
+@inject Func<PopulationSettings, ScoreSettings, GameSettings, ISimulator> CreateSimulatorFunc;
+
+<div class="main">
+    <aside class="side">
+        <h1 class="title text-white">SnakeAI</h1>
+        <div class="control-panel">
+            <div class="control-el">
+                <button class="btn btn-start" @onclick="StartSimulation">
+                    Start
+                </button>
+                <button class="btn btn-stop" @onclick="StopSimulation">
+                    Stop
+                </button>
+            </div>
+        </div>
+        <div class="control-el">
+            <label class="text-white">Generations count</label>
+            <input type="number" @bind-value="@_populationSettings.GenerationsCount" step="50">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Population size</label>
+            <input type="number" @bind-value="@_populationSettings.PopulationSize" step="10">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Mating pool size</label>
+            <input type="number" @bind-value="@_populationSettings.MatingPoolSize">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Offspring count</label>
+            <input type="number" @bind-value="@_populationSettings.OffspringSize">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Mutation Rate</label>
+            <input type="number" @bind-value="@_populationSettings.MutationRate" step="0.01">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Score for correct way</label>
+            <input type="number" @bind-value="@_scoreSettings.ScoreForCorrectWay" step="0.1">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Score for wrong way</label>
+            <input type="number" @bind-value="@_scoreSettings.ScoreForWrongWay" step="0.1">
+        </div>
+        <div class="control-el">
+            <label class="text-white">Score for eating food</label>
+            <input type="number" @bind-value="@_scoreSettings.ScoreForEating">
+        </div>
+    </aside>
+    <div class="main-container">
+        <div class="score-block">
+            <h4>Generation: <span id="generation"></span></h4>
+            <h4>Max score: <span id="score"></span></h4>
+        </div>
+        <SpeedSlider @ref="@_speedSliderComponent" MaxSpeed="2" DefaultGenerationDelay="1000" DefaultTickDelay="10"></SpeedSlider>
+        <div id="canvas-container" class="canvas-container">
+
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private const int GameBoardSizeInPixels = 100;
+    private const int TileSizeInPixels = 5;
+
+    private const int GameBoardSize = GameBoardSizeInPixels / TileSizeInPixels;
+    private const int InitialSnakeSize = 3;
+
+    private SpeedSlider _speedSliderComponent;
+    
+    private ISimulator _geneticSimulator;
+    
+    private readonly PopulationSettings _populationSettings = new();
+    private readonly ScoreSettings _scoreSettings = new();
+    private readonly GameSettings _gameSettings = new()
+    {
+        BoardSize = GameBoardSize,
+        InitialSnakeLength = InitialSnakeSize
+    };
+
+    private bool _isRunning;
+    
+    private async Task StartSimulation()
+    {
+        if (_isRunning)
+        {
+            return;
+        }
+        _isRunning = true;
+        await Js.InvokeVoidAsync("createGrid", _populationSettings.PopulationSize, GameBoardSizeInPixels, GameBoardSizeInPixels, GameBoardSize, TileSizeInPixels);
+        await Js.InvokeVoidAsync("updateState", 0, 0);
+
+        _geneticSimulator = CreateSimulatorFunc(_populationSettings, _scoreSettings, _gameSettings);
+        _geneticSimulator.GameStateUpdated += OnGameStateUpdated;
+        _geneticSimulator.IterationCompleted += OnIterationCompleted;
+        await _geneticSimulator.SimulateAsync();
+    }
+    
+    private async Task OnIterationCompleted(SimulatorState result)
+    {
+        await Js.InvokeVoidAsync("highlightBorders", result.HighRatedIndividualsIds);
+        await Js.InvokeVoidAsync("updateState", result.Iteration, result.HighScore);
+        await Task.Delay(_speedSliderComponent.DelayBetweenGenerations);
+    }
+    
+    private async Task OnGameStateUpdated(int id, GameState state)
+    {
+        var xValues = state.BodyPositions.Select(p => p.X).ToList();
+        var yValues = state.BodyPositions.Select(p => p.Y).ToList();
+        await Js.InvokeVoidAsync("drawGameBoard", id, state.HeadPosition.X, state.HeadPosition.Y, xValues, yValues, state.FoodPosition.X, state.FoodPosition.Y);
+        await Task.Delay(_speedSliderComponent.TickDelay);
+    }
+
+    private void StopSimulation()
+    {
+        if (!_isRunning) return;
+        
+        _geneticSimulator.StopSimulation();
+        _isRunning = false;
+    }
+    
+}

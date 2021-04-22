@@ -1,0 +1,29 @@
+@using System.Globalization
+
+<label>Speed</label>
+<input type="range" min="0" max="@MaxSpeed" value="@(MaxSpeed * 0.5)" step="0.1" @oninput="speed => ChangeDelay(speed.Value.ToString())">
+
+@code 
+{
+    public int TickDelay { get; private set; } = 10;
+    public int DelayBetweenGenerations { get; private set; } = 1000;
+    
+    [Parameter]
+    public float MaxSpeed { private get; set; }
+    
+    [Parameter]
+    public int DefaultTickDelay { private get; set; }
+    [Parameter]
+    public int DefaultGenerationDelay { private get; set; }
+    
+    private void ChangeDelay(string speedString)
+    {
+        var speed = Single.Parse(speedString, CultureInfo.InvariantCulture);
+
+        var maxGenerationDelay = DefaultGenerationDelay * MaxSpeed;
+        DelayBetweenGenerations = (int)(maxGenerationDelay - DefaultGenerationDelay * speed);
+
+        var maxTickDelay = DefaultTickDelay * MaxSpeed;
+        TickDelay = (int)(maxTickDelay - DefaultTickDelay * speed);
+    }
+}

@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C80B3221-6E16-4D9C-9F96-340002BB8778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeGame", "src\SnakeGame\SnakeGame.csproj", "{DAD11A63-A551-4734-B3C5-2D628A288E59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithm", "src\GeneticAlgorithm\GeneticAlgorithm.csproj", "{7F32CFE9-8D8F-413E-B465-DD3338D4EA73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAI", "src\GeneticAI\GeneticAI.csproj", "{73F0497B-5566-45A0-BFA2-D6A2B00AE110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD11A63-A551-4734-B3C5-2D628A288E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD11A63-A551-4734-B3C5-2D628A288E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD11A63-A551-4734-B3C5-2D628A288E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD11A63-A551-4734-B3C5-2D628A288E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F32CFE9-8D8F-413E-B465-DD3338D4EA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F32CFE9-8D8F-413E-B465-DD3338D4EA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F32CFE9-8D8F-413E-B465-DD3338D4EA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F32CFE9-8D8F-413E-B465-DD3338D4EA73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F0497B-5566-45A0-BFA2-D6A2B00AE110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F0497B-5566-45A0-BFA2-D6A2B00AE110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F0497B-5566-45A0-BFA2-D6A2B00AE110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F0497B-5566-45A0-BFA2-D6A2B00AE110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6DEA10AE-65AB-4EB5-88D9-5CB01C322BCB} = {C80B3221-6E16-4D9C-9F96-340002BB8778}
+		{DAD11A63-A551-4734-B3C5-2D628A288E59} = {C80B3221-6E16-4D9C-9F96-340002BB8778}
+		{7F32CFE9-8D8F-413E-B465-DD3338D4EA73} = {C80B3221-6E16-4D9C-9F96-340002BB8778}
+		{73F0497B-5566-45A0-BFA2-D6A2B00AE110} = {C80B3221-6E16-4D9C-9F96-340002BB8778}
+	EndGlobalSection
+EndGlobal
